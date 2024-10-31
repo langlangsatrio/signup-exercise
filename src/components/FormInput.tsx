@@ -11,9 +11,16 @@ interface IFormInput {
   type: string;
   id: string;
   placeholder?: string;
+  onChange?: (e: any) => void;
 }
 
-const Form: React.FC<IFormInput> = ({ label, type, id, placeholder }) => {
+const Form: React.FC<IFormInput> = ({
+  label,
+  type,
+  id,
+  placeholder,
+  onChange,
+}) => {
   const [visible, setVisible] = useState<Boolean>(false);
   if (type === "password") {
     let icon;
@@ -35,6 +42,7 @@ const Form: React.FC<IFormInput> = ({ label, type, id, placeholder }) => {
             type={activeType}
             id={id}
             className="rounded-md border p-2 w-full text-gray-900 shadow-sm my-1"
+            onChange={onChange}
           />
           <button
             type="button"
@@ -106,6 +114,7 @@ const Form: React.FC<IFormInput> = ({ label, type, id, placeholder }) => {
         id={id}
         placeholder={placeholder}
         className="rounded-md border p-2 w-full text-gray-900 shadow-sm my-1"
+        onChange={onChange}
       />
     </div>
   );
