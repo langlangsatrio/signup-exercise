@@ -2,10 +2,14 @@
 import { LanguageContext } from "@/contexts/LanguageContext";
 import { FC, FunctionComponent, useContext } from "react";
 import { IoSearchSharp } from "react-icons/io5";
+import { useAppSelector } from "@/lib/redux/hooks";
 
 interface INavbarProps {}
 
 const Navbar: FunctionComponent<INavbarProps> = (props) => {
+  const user = useAppSelector((state) => state.userReducer);
+  //Redux
+  //Get value from global store reducer user
   const { language, setLanguage } = useContext(LanguageContext); //INISIALISASI USECONTEXT
   return (
     <div className="flex justify-between w-full px-32 py-7 bg-slate-200 ">
@@ -33,12 +37,26 @@ const Navbar: FunctionComponent<INavbarProps> = (props) => {
           <option value="FR">Français</option>
         </select>
         <span className="uppercase text-black">{language}</span>
-        <button className="bg-slate-300 text-black px-7 h-full rounded-md">
-          Sign Up
-        </button>
-        <button className="bg-gray-900 text-white px-7 h-full rounded-md">
-          Log In
-        </button>
+        {user.email ? (
+          <div className="flex gap-4">
+            <p className="text-black font-semibold text-lg">
+              Hi, {user.username}!
+            </p>
+            <button className="bg-slate-300 text-black px-7 h-full rounded-md  h-fit">
+              Log Out
+            </button>
+          </div>
+        ) : (
+          <div>
+            {" "}
+            <button className="bg-slate-300 text-black px-7 h-full rounded-md">
+              Sign Up
+            </button>
+            <button className="bg-gray-900 text-white px-7 h-full rounded-md">
+              Log In
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

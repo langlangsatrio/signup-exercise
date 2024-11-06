@@ -11,6 +11,9 @@ export default function Home() {
         <button className="p-2 font-bold text-center text-4xl border border-red-700 rounded-md">
           <a href="/login">Sign In</a>
         </button>
+        <button className="p-2 font-bold text-center text-4xl border border-red-700 rounded-md">
+          <a href="/post">Post</a>
+        </button>
       </div>
     </div>
   );

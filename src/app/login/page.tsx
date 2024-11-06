@@ -1,6 +1,7 @@
 "use client";
 import Form from "@/components/FormInput";
-import Navbar from "@/components/Navbar";
+import { useAppDispatch } from "@/lib/redux/hooks";
+import { setSignIn } from "@/lib/redux/features/userSlice";
 import { callAPI } from "@/config/axios";
 import { useState } from "react";
 
@@ -15,12 +16,16 @@ export default function Login() {
     setPassword(e.target.value);
   };
 
+  //Define dispatch from useAppDispatch for execute function actions from redux
+  const dispatch = useAppDispatch(); //useAppDispatch adalah function yang mereturn function (action)
+
   const onSignIn = async () => {
     try {
       const response = await callAPI.get(
         `user?email=${email}&password=${password}`
       );
       console.log("CHECK SIGIN RESPONSE: ", response.data);
+      dispatch(setSignIn(response.data[0])); // Store data to global store redux
       localStorage.setItem("dataUser", JSON.stringify(response.data[0]));
     } catch (error) {
       console.log(error);
